@@ -16,6 +16,14 @@ body{
     &::-webkit-scrollbar-thumb:active {background-color:#F56C6C}
 }
 
+.tag-warp{
+    &::-webkit-scrollbar{height: 4px;}
+    &::-webkit-scrollbar-track{background-color:#f9f9f9;border-radius: 10px;}
+    &::-webkit-scrollbar-thumb{background-color:#f9f9f9;border-radius: 10px;}
+    &::-webkit-scrollbar-thumb:hover {background-color: rgba(144,147,153,.7)}
+    &::-webkit-scrollbar-thumb:active {background-color:rgb(58, 97, 168)}
+}
+
 // .tag-warp{
 //   position: fixed;
 //   top: 35px;
@@ -51,20 +59,49 @@ body{
     padding: 10px!important;
   }
 }
-
+.ivu-tag-primary{
+  opacity: 1!important;
+}
+.ivu-tag-default{
+  background-color: #4a3563!important;
+  border: 0!important;
+  span.ivu-tag-dot-inner{
+    background: #aaa
+  }
+  span.ivu-tag-text{
+    color: #aaa;
+  }
+}
 .ivu-btn-text:focus{
   box-shadow: none;
 }
 .tag-warp{
   .ivu-tag-dot{
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    position: relative;
+    max-width: 180px;
     padding-bottom: 33px;
     margin-bottom: 0px;
-    position: relative;
+    margin-top: 5px;
+    padding-right: 25px;
     z-index: -22;
     border-bottom: 0!important;
     border-radius: 3px 3px 0 0;
+    min-width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    .ivu-icon-ios-close{
+      position: absolute;
+      right: 6px;
+      top: 9px;
+      transition: 0.28s;
+      // background: linear-gradient(rgba(0,0,0,0),rgba(255,255,255,1))
+      &:hover{
+        color: rgb(252, 8, 0)!important;
+        font-size: 16px;
+      }
+    }
   }
 }
+
+.OneDark pre::-webkit-scrollbar { width: 0 !important }

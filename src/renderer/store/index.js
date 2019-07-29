@@ -16,7 +16,8 @@ const store = new Vuex.Store({
   },
   getters: {
     user: state => state.user,
-    fileList: state => state.flieList
+    fileList: state => state.flieList,
+    len: state => state.len
   }
 })
 

@@ -2,7 +2,7 @@
   <div class="home-wrap">
     <div class="home-top">
       <Dropdown>
-        <Button type="text" size="small">
+        <Button type="text" size="small" ghost>
           文件
           <Icon type="ios-arrow-down"></Icon>
         </Button>
@@ -41,7 +41,15 @@ export default {
   methods: {
     toCreat () {
       this.$store.commit('addFlie', 0)
+      this.$router.push({
+        name: 'content',
+        params: {
+          index: this.$store.getters.len
+        }
+      })
     }
+  },
+  mounted () {
   }
 }
 </script>
@@ -56,7 +64,7 @@ export default {
     width: 100%;
     height: 36px;
     z-index: 99;
-    background: #e9e9e9;
+    background: #2d1c44;
     display: flex;
     align-items: center;
     Button{
