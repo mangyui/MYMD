@@ -18,11 +18,11 @@ export default new Router({
         }
       ]
     },
-    {
-      path: '/defult',
-      name: 'landing-page',
-      component: require('@/components/LandingPage').default
-    },
+    // {
+    //   path: '/defult',
+    //   name: 'landing-page',
+    //   component: require('@/components/LandingPage').default
+    // },
     {
       path: '*',
       redirect: '/home'

@@ -36,7 +36,8 @@ export default {
       if (this.$store.getters.fileList.length > 0) {
         ii = this.$store.getters.fileList[this.$store.getters.fileList.length - 1].index
       }
-      if (rindex === this.$route.params.index) {
+      // eslint-disable-next-line
+      if (rindex == this.$route.params.index) {
         this.$router.push({
           name: 'content',
           params: {

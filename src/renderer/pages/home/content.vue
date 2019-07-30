@@ -1,20 +1,21 @@
 <template>
   <div ref="select_frame" class="content-warp">
     <div class="content-none" v-if="isNone">
-      <div @click="toCreat(0)">
+      <div class="none-item" @click="toCreat(0)">
         <Icon type="md-document" size="30"/>
         新建
       </div>
-      <div>
+      <label class="none-item" for="fOpen">
         <Icon type="ios-folder-open" size="30"/>
         打开
-      </div>
+      </label>
+      <input  ref="refOpen" type="file" id="fOpen" @change="toChoose">
     </div>
-    <MarkDown v-if="!isNone" style="height: 100%" 
+    <MarkDown v-if="!isNone" style="height: 100%"
       :initialValue="content" 
       theme="OneDark" 
       :toolbars="config" 
-      :autoSave="true"
+      :autoSave="autoSave"
       :exportFileName="fileName"
       @on-save="onEditorChange"/>
   </div>
@@ -22,7 +23,7 @@
 
 <script>
 import MarkDown from 'vue-meditor'
-import fs from 'fs'
+// import fs from 'fs'
 
 export default {
   name: 'home',
@@ -31,9 +32,10 @@ export default {
   },
   data () {
     return {
-      content: '',
+      content: '123',
       fileName: '未命名',
       isNone: true,
+      autoSave: true,
       config: {
         fullscreen: false // 隐藏掉打印功能
       }
@@ -52,29 +54,48 @@ export default {
         }
       })
     },
-    initContent (file) {
-      fs.readFile(file.path, 'utf-8', (err, data) => {
-        // 读取文件失败/错误
-        if (err) {
-          throw err
-        } else {
-          // 读取文件成功
-          this.content = data
-          this.fileName = file.name.substring(0, file.name.length - 3)
+    toChoose (e) {
+      const file = e.target.files[0]
+      this.getContent(file)
+      this.$refs.refOpen.value = null
+    },
+    getContent (data) {
+      if (data.name && (data.name.substring(data.name.length - 3) === '.md' || data.name.substring(data.name.length - 3) === '.MD')) {
+        // eslint-disable-next-line
+        var n = new FileReader
+        n.readAsText(data, {
+          encoding: 'utf-8'
+        })
+        n.onload = () => {
+          data.content = n.result
+          this.toCreat(data)
         }
-      })
+      } else {
+        alert('文件不正确，请选择md文件')
+      }
+    },
+    initContent (file) {
+      // fs.readFile(file.path, 'utf-8', (err, data) => {
+      //   // 读取文件失败/错误
+      //   if (err) {
+      //     throw err
+      //   } else {
+      //     // 读取文件成功
+      //     this.content = data
+      //     this.fileName = file.name.substring(0, file.name.length - 3)
+      //   }
+      // })
     }
   },
   created () {
     let files = this.$store.getters.fileList
     let index = this.$route.params.index
     for (let j = 0, len = files.length; j < len; j++) {
-      /* eslint-disable */
+      // eslint-disable-next-line
       if (files[j].index == index) {
         this.isNone = false
-        if (files[j].file != 0) {
-          this.initContent(files[j])
-        }
+        this.content = files[j].content
+        this.fileName = files[j].name
         break
       }
     }
@@ -87,14 +108,8 @@ export default {
     this.$refs.select_frame.ondrop = (e) => {
       e.preventDefault()
       if (e.dataTransfer.files[0]) {
-        const data = e.dataTransfer.files[0]
-        // console.log(data)
-        if (data.name && (data.name.substring(data.name.length-3) === ".md" || data.name.substring(data.name.length-3) === ".MD")) {
-          this.toCreat(data)
-          // console.log(this.$store.getters.fileList)
-        } else {
-          alert('文件不正确，请选择md文件')
-        }
+        const file = e.dataTransfer.files[0]
+        this.getContent(file)
       }
     }
     this.$refs.select_frame.ondragenter = (e) => {
@@ -112,6 +127,9 @@ export default {
   height: 100%;
   position: fixed;
   width: 100%;
+  #fOpen{
+    display: none!important;
+  }
   .content-none{
     position: absolute;
     width: 100%;
@@ -122,8 +140,9 @@ export default {
     justify-content: space-evenly;
     align-items: center;
     background-color: #41228e!important;
-    background-image: url('/static/img/leaf-bg.png');
-    div{
+    background-image: url('../../../../static/img/leaf-bg.png');
+    .none-item{
+      display: block;
       padding: 35px;
       font-size: 20px;
       font-weight: bold;

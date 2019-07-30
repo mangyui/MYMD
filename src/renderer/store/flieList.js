@@ -8,7 +8,8 @@ export default {
       state.len = state.len + 1
       let fe = {
         file: file,
-        name: file.name || '未命名',
+        name: file.name ? file.name.substring(0, file.name.length - 3) : '未命名',
+        content: file.content || '',
         path: file.path || '',
         index: state.len,
         ischange: false
@@ -23,6 +24,10 @@ export default {
     },
     updateFile (state, index, file) {
       state.flieList[index].file = file
+      sessionStorage.setItem('flieList', JSON.stringify(state.flieList))
+    },
+    removeAll (state) {
+      state.flieList = []
       sessionStorage.setItem('flieList', JSON.stringify(state.flieList))
     }
   }

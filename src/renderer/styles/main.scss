@@ -1,27 +1,27 @@
 
 *{
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body{
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 body::-webkit-scrollbar{width:6px;}
 body{
-    &::-webkit-scrollbar-track{background-color:#fff;border-radius: 10px;}
-    &::-webkit-scrollbar-thumb{background-color:rgba(144,147,153,.5);border-radius: 10px;}
-    &::-webkit-scrollbar-thumb:hover {background-color: rgba(144,147,153,.7)}
-    &::-webkit-scrollbar-thumb:active {background-color:#F56C6C}
+  &::-webkit-scrollbar-track{background-color:#fff;border-radius: 10px;}
+  &::-webkit-scrollbar-thumb{background-color:rgba(144,147,153,.5);border-radius: 10px;}
+  &::-webkit-scrollbar-thumb:hover {background-color: rgba(144,147,153,.7)}
+  &::-webkit-scrollbar-thumb:active {background-color:#F56C6C}
 }
 
 .tag-warp{
-    &::-webkit-scrollbar{height: 4px;}
-    &::-webkit-scrollbar-track{background-color:#f9f9f9;border-radius: 10px;}
-    &::-webkit-scrollbar-thumb{background-color:#f9f9f9;border-radius: 10px;}
-    &::-webkit-scrollbar-thumb:hover {background-color: rgba(144,147,153,.7)}
-    &::-webkit-scrollbar-thumb:active {background-color:rgb(58, 97, 168)}
+  &::-webkit-scrollbar{height: 4px;}
+  &::-webkit-scrollbar-track{background-color:#f9f9f9;border-radius: 10px;}
+  &::-webkit-scrollbar-thumb{background-color:#f9f9f9;border-radius: 10px;}
+  &::-webkit-scrollbar-thumb:hover {background-color: rgba(144,147,153,.7)}
+  &::-webkit-scrollbar-thumb:active {background-color:rgb(58, 97, 168)}
 }
 
 // .tag-warp{
@@ -36,72 +36,81 @@ body{
 // }
 
 .markdown {
-  .markdown-toolbars{
-    position: fixed;
-    top: 33px;
-    left: 0px;
-    width: 10px;
-    z-index: 9;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
-    border-bottom: 0!important;
-    >li{
-      padding-right: 7px;
-      span{
-        color: #444;
-      }
+.markdown-toolbars{
+  position: fixed;
+  top: 33px;
+  left: 0px;
+  width: 10px;
+  z-index: 9;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+  border-bottom: 0!important;
+  >li{
+    padding-right: 7px;
+    span{
+      color: #444;
     }
   }
-  .markdown-content{
-    height: 100%!important;
-    margin-top: 37px;
-  }
-  .markdown-preview{
-    padding: 10px!important;
-  }
+}
+.markdown-content{
+  height: 100%!important;
+  margin-top: 37px;
+  margin-bottom: 37px;
+}
+.markdown-preview{
+  padding: 10px!important;
+}
 }
 .ivu-tag-primary{
-  opacity: 1!important;
+opacity: 1!important;
 }
 .ivu-tag-default{
-  background-color: #4a3563!important;
-  border: 0!important;
-  span.ivu-tag-dot-inner{
-    background: #aaa
-  }
-  span.ivu-tag-text{
-    color: #aaa;
-  }
+background-color: #4a3563!important;
+border: 0!important;
+span.ivu-tag-dot-inner{
+  background: #aaa
+}
+span.ivu-tag-text{
+  color: #aaa;
+}
 }
 .ivu-btn-text:focus{
-  box-shadow: none;
+box-shadow: none;
 }
 .tag-warp{
-  .ivu-tag-dot{
-    overflow: hidden;
-    position: relative;
-    max-width: 180px;
-    padding-bottom: 33px;
-    margin-bottom: 0px;
-    margin-top: 5px;
-    padding-right: 25px;
-    z-index: -22;
-    border-bottom: 0!important;
-    border-radius: 3px 3px 0 0;
-    min-width: 100px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    .ivu-icon-ios-close{
-      position: absolute;
-      right: 6px;
-      top: 9px;
-      transition: 0.28s;
-      // background: linear-gradient(rgba(0,0,0,0),rgba(255,255,255,1))
-      &:hover{
-        color: rgb(252, 8, 0)!important;
-        font-size: 16px;
-      }
+.ivu-tag-dot{
+  overflow: hidden;
+  position: relative;
+  max-width: 200px;
+  padding-bottom: 33px;
+  margin-bottom: 0px;
+  margin-top: 5px;
+  padding-right: 25px;
+  z-index: -22;
+  border-bottom: 0!important;
+  border-radius: 3px 3px 0 0;
+  min-width: 120px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 30px;
+  .ivu-tag-text{
+    font-size: 13px;
+  }
+  .ivu-icon-ios-close{
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    transition: 0.28s;
+    font-size: 16px;
+    color: #aaa;
+    // background: linear-gradient(rgba(0,0,0,0),rgba(255,255,255,1))
+    &:hover{
+      color: rgb(252, 8, 0)!important;
+      font-weight: bold;
     }
   }
 }
-
+}
+.ivu-dropdown{
+  z-index: 1000
+}
 .OneDark pre::-webkit-scrollbar { width: 0 !important }

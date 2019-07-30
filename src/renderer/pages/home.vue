@@ -7,15 +7,18 @@
           <Icon type="ios-arrow-down"></Icon>
         </Button>
         <DropdownMenu slot="list">
-          <DropdownItem><Icon type="md-document" size="15" /> 新建</DropdownItem>
-          <DropdownItem><div @click="toCreat"><Icon type="ios-folder-open" size="15"/> 打开</div></DropdownItem>
-          <DropdownItem divided><Icon type="md-archive" size="15" /> 保存</DropdownItem>
-          <DropdownItem><Icon type="md-albums" size="15" /> 另存为</DropdownItem>
-          <DropdownItem divided>退出</DropdownItem>
+          <DropdownItem><div @click="toCreat(0)"><Icon type="md-document" size="15" /> 新建</div></DropdownItem>
+          <DropdownItem>
+            <label for="hOpen"><Icon type="ios-folder-open" size="15"/> 打开</label>
+            <input ref="refhOpen" type="file" id="hOpen" @change="toChoose" />
+          </DropdownItem>
+          <!-- <DropdownItem divided><Icon type="md-archive" size="15" /> 保存</DropdownItem>
+          <DropdownItem><Icon type="md-albums" size="15" /> 另存为</DropdownItem> -->
+          <DropdownItem divided><div @click="closeAll">关闭所有</div></DropdownItem>
         </DropdownMenu>
       </Dropdown>
       <tagBox></tagBox>
-      <Icon @click="toCreat" class="ico-add" type="md-add" size="20"/>
+      <Icon @click="toCreat(0)" class="ico-add" type="md-add" size="20"/>
     </div>
     <div class="home-content">
       <keep-alive >
@@ -39,14 +42,43 @@ export default {
     }
   },
   methods: {
-    toCreat () {
-      this.$store.commit('addFlie', 0)
+    closeAll () {
+      this.$store.commit('removeAll')
+      this.$router.push({
+        name: 'content',
+        params: {
+          index: 0
+        }
+      })
+    },
+    toCreat (file) {
+      this.$store.commit('addFlie', file)
       this.$router.push({
         name: 'content',
         params: {
           index: this.$store.getters.len
         }
       })
+    },
+    toChoose (e) {
+      const file = e.target.files[0]
+      this.getContent(file)
+      this.$refs.refhOpen.value = null
+    },
+    getContent (data) {
+      if (data.name && (data.name.substring(data.name.length - 3) === '.md' || data.name.substring(data.name.length - 3) === '.MD')) {
+        // eslint-disable-next-line
+        var n = new FileReader
+        n.readAsText(data, {
+          encoding: 'utf-8'
+        })
+        n.onload = () => {
+          data.content = n.result
+          this.toCreat(data)
+        }
+      } else {
+        alert('文件不正确，请选择md文件')
+      }
     }
   },
   mounted () {
@@ -78,6 +110,9 @@ export default {
 .ico-add{
   padding: 0 5px;
   cursor: pointer;
+}
+#hOpen{
+  display: none!important;
 }
 </style>
 

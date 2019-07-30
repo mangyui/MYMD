@@ -19,7 +19,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "my-markdown",
+    "productName": "MYMD",
     "appId": "com.my.markdown",
     "directories": {
       "output": "build"
@@ -46,7 +46,7 @@
       "icon": "build/icons/icon.icns"
     },
     "win": {
-      "icon": "build/icons/icon.ico"
+      "icon": "build/icons/favicon.ico"
     },
     "linux": {
       "icon": "build/icons"
