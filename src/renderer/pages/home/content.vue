@@ -27,7 +27,13 @@
             <p class="info-path">文件地址：<span>{{fPath}}</span></p>
             <br />
             <div class="my-right">
-              <Button size="small" type="primary" @click="toUpdate">修改文件名</Button>
+              <Button size="small" type="text" @click="toUpdate">修改文件名</Button>
+            </div>
+            <br />
+            <br />
+            <div class="my-center">
+              <Button size="small" type="primary" @click="toSave">保存</Button>
+              <Button size="small" @click="toNewSave">另存为</Button>
             </div>
           </div>
           <div v-show="isModification">
@@ -35,16 +41,21 @@
             <p class="info-path">&nbsp;</p>
             <br />
             <div class="my-right">
-              <Button size="small" type="primary" @click="updateName">确认</Button>
-              <Button size="small" @click="isModification = false">取消</Button>
+              <Button size="small" type="text" @click="updateName">确认</Button>
+              <Button size="small" type="text" @click="isModification = false">取消</Button>
             </div>
+            <br />
+            <br />
+            <br />
           </div>
-          <h5>提示：</h5>
-          <ul>
-            <li>在主页和编辑页都可以接收用户鼠标拖动进来的md文件，该操作为新建一个标签</li>
-            <li>在编辑页面可选择导入md文件,该操作是将导入的md文件内容覆盖当前的编辑文本</li>
-            <li>编辑器在标签切换时会自动保存，用户也可随时手动保存（ctrl + s）</li>
+          <div class="info-tip">
+            <h5>提示：</h5>
+            <ul>
+              <li>在主页和编辑页都可以接收用户鼠标拖动进来的md文件，该操作为新建一个标签</li>
+              <li>在编辑页面可选择导入md文件,该操作是将导入的md文件内容覆盖当前的编辑文本</li>
+              <li>编辑器在标签切换时会自动保存，用户也可随时手动保存（ctrl + s）</li>
           </ul>
+          </div>
         </div>
       </Drawer>
     </div>
@@ -54,9 +65,10 @@
 <script>
 import MarkDown from 'vue-meditor'
 import fs from 'fs'
+const dialog = require('electron').remote.dialog
 
 export default {
-  name: 'content',
+  name: 'pcContent',
   components: {
     MarkDown
   },
@@ -79,7 +91,7 @@ export default {
   watch: {
     $route (to, from) {
       // eslint-disable-next-line
-      if (from.params.index == this.rindex) {
+      if (from.params.index == this.rindex && this.$refs.markDown) {
         this.$refs.markDown.handleSave()
       }
     }
@@ -90,6 +102,37 @@ export default {
     }
   },
   methods: {
+    toNewSave () {
+      var filePath = dialog.showSaveDialog({
+        filters: [
+          {
+            name: 'MD(Markdown)文件',
+            extensions: ['md']
+          }
+        ],
+        defaultPath: this.fPath,
+        title: '另存为'
+      })
+      if (filePath && filePath !== '') {
+        this.fPath = filePath
+        this.$store.commit('updatePath', {index: this.rindex, path: filePath})
+        fs.writeFile(this.fPath, this.$refs.markDown.value, {encoding: 'utf8'}, (err) => {
+          if (err) {
+            console.error(err)
+            alert('保存路径错误')
+          }
+        })
+        let pathName = this.fPath.split('\\')
+        let hName = pathName[pathName.length - 1]
+        if (hName) {
+          this.fileName = hName.substring(0, hName.length - 3)
+          this.$store.commit('updateName', {index: this.rindex, name: this.fileName})
+        }
+      }
+    },
+    toSave () {
+      this.$refs.markDown.handleSave()
+    },
     toUpdate () {
       this.newName = this.fileName
       this.isModification = true

@@ -85,7 +85,9 @@ export default {
     }
   },
   beforeDestroy () {
-    this.$refs.markDown.handleSave()
+    if (this.$refs.markDown) {
+      this.$refs.markDown.handleSave()
+    }
   },
   methods: {
     toUpdate () {
