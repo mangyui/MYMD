@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import content from '@/pages/home/content'
+// import content from '@/pages/home/webContent'
+
 Vue.use(Router)
 
 export default new Router({
@@ -14,7 +17,7 @@ export default new Router({
         {
           path: 'index/:index',
           name: 'content',
-          component: () => import('@/pages/home/content')
+          component: content // () => import('@/pages/home/content')
         }
       ]
     },

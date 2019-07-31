@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import files from './flieList'
+import files from './fileList'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,7 @@ const store = new Vuex.Store({
     ...files.mutations
   },
   getters: {
-    fileList: state => state.flieList,
+    fileList: state => state.fileList,
     len: state => state.len
   }
 })

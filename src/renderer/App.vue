@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'my-markdown'
+    name: 'MYMD'
   }
 </script>
 

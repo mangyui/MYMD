@@ -53,10 +53,10 @@
 
 <script>
 import MarkDown from 'vue-meditor'
-import fs from 'fs'
+// import fs from 'fs'
 
 export default {
-  name: 'content',
+  name: 'webContent',
   components: {
     MarkDown
   },
@@ -79,67 +79,29 @@ export default {
   watch: {
     $route (to, from) {
       // eslint-disable-next-line
-      if (from.params.index == this.rindex) {
+      if (from.params.index == this.rindex && this.$refs.markDown) {
         this.$refs.markDown.handleSave()
       }
     }
   },
   beforeDestroy () {
-    if (this.$refs.markDown) {
-      this.$refs.markDown.handleSave()
-    }
+    this.$refs.markDown.handleSave()
   },
   methods: {
     toUpdate () {
       this.newName = this.fileName
       this.isModification = true
     },
-    fsExistsSync (path) {
-      try {
-        fs.accessSync(path, fs.F_OK)
-      } catch (e) {
-        return false
-      }
-      return true
-    },
     updateName () {
       if (this.newName.trim() !== '' || this.newName !== this.fileName) {
-        if (this.fPath !== '') {
-          let newPath = this.fPath.split(this.fileName + '.md')[0] + this.newName + '.md'
-          if (!this.fsExistsSync(newPath)) {
-            fs.rename(this.fPath, newPath, (err) => {
-              if (err) {
-                console.log(err)
-                alert('文件名非法')
-              } else {
-                this.$store.commit('updateName', {index: this.rindex, name: this.newName})
-                this.fileName = this.newName
-                this.isModification = false
-                this.fPath = newPath
-                this.$store.commit('updatePath', {index: this.rindex, path: newPath})
-              }
-            })
-          } else {
-            alert('文件已存在')
-          }
-        } else {
-          this.$store.commit('updateName', {index: this.rindex, name: this.newName})
-          this.fileName = this.newName
-          this.isModification = false
-        }
+        this.$store.commit('updateName', {index: this.rindex, name: this.newName})
+        this.fileName = this.newName
+        this.isModification = false
       }
     },
     onEditorChange (event) {
       // console.log('cc')
-      if (this.fPath !== '') {
-        fs.writeFile(this.fPath, event.value, {encoding: 'utf8'}, (err) => {
-          if (err) {
-            console.error(err)
-          }
-        })
-      } else {
-        this.$store.commit('updateContent', {index: this.rindex, content: event.value})
-      }
+      this.$store.commit('updateContent', {index: this.rindex, content: event.value})
     },
     toCreat (file) {
       this.$store.commit('addFlie', file)
@@ -158,28 +120,16 @@ export default {
     getContent (data) {
       if (data.name && (data.name.substring(data.name.length - 3) === '.md' || data.name.substring(data.name.length - 3) === '.MD')) {
         // eslint-disable-next-line
-        // var n = new FileReader
-        // n.readAsText(data, {
-        //   encoding: 'utf-8'
-        // })
-        // n.onload = () => {
-        //   data.content = n.result
-        this.toCreat(data)
+        var n = new FileReader
+        n.readAsText(data, {
+          encoding: 'utf-8'
+        })
+        n.onload = () => {
+          data.content = n.result
+          this.toCreat(data)
+        }
       } else {
         alert('文件不正确，请选择md文件')
-      }
-    },
-    initContent (path) {
-      if (path !== '') {
-        fs.readFile(path, 'utf-8', (err, data) => {
-          // 读取文件失败/错误
-          if (err) {
-            throw err
-          } else {
-            // 读取文件成功
-            this.content = data
-          }
-        })
       }
     }
   },
@@ -194,13 +144,10 @@ export default {
         this.fileName = files[j].name
         this.fPath = files[j].path
         // eslint-disable-next-line
-        if (files[j].path == '') {
-          this.content = files[j].content
-        }
+        this.content = files[j].content
         break
       }
     }
-    this.initContent(this.fPath)
   },
   mounted () {
     // 阻止离开时的浏览器默认行为

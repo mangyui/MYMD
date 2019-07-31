@@ -2,6 +2,7 @@
   <div class="tag-warp">
     <div class="tag-box">
       <Tag type="dot" 
+        :title="item.name"
         checkable
         @on-change="toChange(item.index)"
         v-for="(item,index) in fileList"
@@ -10,7 +11,7 @@
         :color="$route.params.index==item.index?'primary':'default'" 
         closable 
         @on-close="toClose(item.index, index)"
-        >{{item.file==0?'新建':item.name}}</Tag>
+        >{{item.name}}</Tag>
       </div>
   </div>
 </template>

@@ -28,11 +28,11 @@ function createWindow () {
   mainWindow.loadURL(winURL)
   mainWindow.maximize()
   mainWindow.show()
+  mainWindow.webContents.openDevTools()
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 }
-
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {

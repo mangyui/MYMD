@@ -68,14 +68,13 @@ export default {
     getContent (data) {
       if (data.name && (data.name.substring(data.name.length - 3) === '.md' || data.name.substring(data.name.length - 3) === '.MD')) {
         // eslint-disable-next-line
-        var n = new FileReader
-        n.readAsText(data, {
-          encoding: 'utf-8'
-        })
-        n.onload = () => {
-          data.content = n.result
-          this.toCreat(data)
-        }
+        // var n = new FileReader
+        // n.readAsText(data, {
+        //   encoding: 'utf-8'
+        // })
+        // n.onload = () => {
+        //   data.content = n.result
+        this.toCreat(data)
       } else {
         alert('文件不正确，请选择md文件')
       }
