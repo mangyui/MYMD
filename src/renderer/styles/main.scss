@@ -122,7 +122,28 @@ box-shadow: none;
 }
 .OneDark pre::-webkit-scrollbar { width: 0 !important }
 
+/* md */
 
+.markdown .markdown-content {
+  .markdown-editor {
+    .index{
+      width: 42px!important;
+      padding-right: 7px!important;
+      li{
+        text-align: right!important;
+      }
+    }
+    textarea{
+      white-space: pre!important;
+      overflow-x: auto!important;
+      &::-webkit-scrollbar{height:8px;
+        position: fixed;
+        bottom: 10px;
+      }
+      &::-webkit-scrollbar-thumb{background-color:rgba(144,147,153,.5);border-radius: 3px;}
+    }
+  }
+}
 
 .markdown-preview{
   blockquote{
@@ -130,24 +151,55 @@ box-shadow: none;
   }
   ul {
     margin: 12px 0 20px!important;
-    li code{
-      color: #b71c1c;
-      line-height: 1;
-      margin: 0 4px;
-      font-size: 80%;
-      padding: 3px 5px;
-      border: 1px solid #eee;
-      background: #fafafa;
-      border-radius: 3px;
-      word-wrap: break-word;
-      vertical-align: middle;
+    li {
+      min-height: 24px;
+      code{
+        color: #c53838;
+        line-height: 1;
+        margin: 0 4px;
+        font-size: 80%;
+        padding: 3px 5px;
+        border: 1px solid #eee;
+        background: #fafafa;
+        border-radius: 3px;
+        word-wrap: break-word;
+        vertical-align: middle;
+        font-weight: bold;
+      }
     }
   }
 
-  ul li:after{
-    z-index: 1!important;
+  ul {
+    li:after{
+      z-index: 1!important;
+    }
   }
+  h1{
+    border: 0!important;
+    margin: 15px 0 10px;
+    position: relative;
+    &::before{
+      content: '#';
+      position: absolute;
+      left: -16px;
+      font-size: 22px;
+      color: #888;
+      top: 14px;
+      font-family: monospace;
+    }
+  }
+  p{
+    strong{
+      color: #c53838;
+    }
+    a{
+      text-decoration: underline;
+    }
+  }
+
 }
+
+
 .ivu-drawer-body {
   border-top: 1px solid #f5f5f5;
   .my-file-info{
