@@ -9,12 +9,12 @@
 
 ```
 // 注释其中一句
-// import content from '@/pages/home/content'
+// import content from '@/pages/home/content''
 
 import content from '@/pages/home/webContent'
 
 ```
-*window平台安装程序 [下载](http://coding-net-production-file-1257242599.cos.ap-shanghai.myqcloud.com/b6f1d1f0-b369-11e9-9668-73b7a72c064a.exe?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDay83lFmaS6Y4LTdzMVO1SdZOyJSNOYpr%26q-sign-time%3D1564560389%3B1564563989%26q-key-time%3D1564560389%3B1564563989%26q-header-list%3D%26q-url-param-list%3Dresponse-content-disposition%3Bresponse-expires%26q-signature%3D003995dc140dc293903d205d75f9f8ba33a3c4dc&response-content-disposition=attachment%3Bfilename%3DMYMD_Setup.exe&response-expires=Fri%2C%2002%20Aug%202019%2020%3A06%3A29%20GMT) 
+*window平台安装程序 [下载](https://coding.net/s/cadf211f-9cd1-4ac0-bbc9-4fe090cd6d62) 
 
 [在线版](http://47.106.130.141:9529)
 
